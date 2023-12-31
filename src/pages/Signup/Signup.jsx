@@ -4,10 +4,12 @@ import { useForm } from "react-hook-form";
 import { signup } from "../../utils/apiCalls";
 import { toast } from "react-hot-toast";
 import { useStateValue } from "../../StateProvider";
+import { useState } from "react";
 
 export const Signup = () => {
   const navigate = useNavigate();
   const [, dispatch] = useStateValue();
+  const [showPw, setShowPw] = useState(false);
   const {
     register,
     handleSubmit,
@@ -86,7 +88,7 @@ export const Signup = () => {
         <div className="input-box">
           <label htmlFor="">Password</label>
           <input
-            type="password"
+            type={showPw ? "text" : "password"}
             placeholder="Enter password"
             {...register("password", {
               required: "Password is required",
@@ -99,6 +101,15 @@ export const Signup = () => {
             })}
           />
           <small className="error">{errors.password?.message}</small>
+          <div className="show-pw">
+            <input
+              type="checkbox"
+              name=""
+              id=""
+              onChange={() => setShowPw(!showPw)}
+            />
+            <label htmlFor="">Show password</label>
+          </div>
         </div>
         <button className="primary-btn" type="submit">
           Signup
