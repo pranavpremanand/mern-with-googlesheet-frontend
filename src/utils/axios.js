@@ -1,16 +1,10 @@
 import axios from "axios";
+import { baseUrl } from "./constants";
 
-const client = axios.create({ baseURL: "http://localhost:5000" });
+export const request = axios.create({ baseURL: baseUrl });
 
-export const request = ({ ...options }) => {
-  const token =
-    sessionStorage.getItem("token") || localStorage.getItem("token");
-  client.defaults.headers.common.Authorization = `Bearer ${token}`;
-
-  const onSuccess = (response) => response;
-  const onError = (error) => {
-    return error;
-  };
-
-  return client(options).then(onSuccess).catch(onError);
-};
+request.interceptors.request.use((req) => {
+  req.headers.authorization = sessionStorage.getItem("token") || sessionStorage.getItem('adminToken');
+  
+  return req;
+});

@@ -1,26 +1,65 @@
 import { Login } from "./pages/Login/Login";
 import "./App.scss";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 import { Signup } from "./pages/Signup/Signup";
 import Home from "./pages/Home/Home";
 import { Toaster } from "react-hot-toast";
 import { LoadingSpinner } from "./components/LoadingSpinner";
 import { useStateValue } from "./StateProvider";
-import { ProtectRoute, PublicRoute } from "./ProtectRoutes";
+import {
+  AdminProtectRoute,
+  PublicRoute,
+  UserProtectRoute,
+} from "./ProtectRoutes";
+import AdminHome from "./pages/AdminHome/AdminHome";
+import { useEffect } from "react";
+import { getUserData } from "./utils/apiCalls";
 
 function App() {
-  const [{ isLoading }] = useStateValue();
+  const [{ isLoading }, dispatch] = useStateValue();
+  const { pathname } = useLocation();
+
+  // check user blocked status
+  const checkUserStatus = async () => {
+    try {
+      const response = await getUserData();
+      if (response.data.data.isBlocked) {
+        dispatch({ type: "SET_BLOCKED_TEXT_SHOW" });
+      }
+    } catch (err) {
+      // handle error
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    checkUserStatus();
+  }, [pathname]);
   return (
-    <BrowserRouter>
+    <>
       <Toaster position="top-center" reverseOrder={false} />
       {isLoading && <LoadingSpinner />}
       <Routes>
         <Route
           path="/"
           element={
-            <ProtectRoute>
+            <UserProtectRoute>
               <Home />
-            </ProtectRoute>
+            </UserProtectRoute>
+          }
+        />
+        <Route
+          path="/admin"
+          element={
+            <AdminProtectRoute>
+              <AdminHome />
+            </AdminProtectRoute>
           }
         />
         <Route
@@ -40,7 +79,7 @@ function App() {
           }
         />
       </Routes>
-    </BrowserRouter>
+    </>
   );
 }
 

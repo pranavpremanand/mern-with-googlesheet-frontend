@@ -6,7 +6,7 @@ import { toast } from "react-hot-toast";
 import { useStateValue } from "../../StateProvider";
 
 export const Login = () => {
-  const [, dispatch] = useStateValue();
+  const [{}, dispatch] = useStateValue();
   const navigate = useNavigate();
   const {
     register,
@@ -27,8 +27,13 @@ export const Login = () => {
       const response = await login(values);
       if (response.data.success) {
         toast.success(response.data.message);
-        sessionStorage.setItem('token',response.data.accessToken)
-        navigate("/");
+        if (response.data.data.isAdmin) {
+          sessionStorage.setItem("adminToken", response.data.accessToken);
+          navigate("/admin");
+        } else {
+          sessionStorage.setItem("token", response.data.accessToken);
+          navigate("/");
+        }
       } else {
         toast(response.data.message, { icon: "⚠️" });
       }

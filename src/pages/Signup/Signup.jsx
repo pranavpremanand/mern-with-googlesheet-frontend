@@ -28,7 +28,7 @@ export const Signup = () => {
       const response = await signup(values);
       if (response.data.success) {
         toast.success(response.data.message);
-        sessionStorage.setItem('token',response.data.accessToken)
+        sessionStorage.setItem("token", response.data.accessToken);
         navigate("/");
       } else {
         toast(response.data.message, { icon: "⚠️" });

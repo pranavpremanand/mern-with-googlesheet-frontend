@@ -8,6 +8,7 @@
   h1{
     font-weight: 600;
     text-transform: uppercase;
+    line-height: 1rem;
   }
   form {
     display: grid;
@@ -16,24 +17,6 @@
     width: 30%;
     @media (max-width: 680px) {
       width: 70%;
-    }
-    .input-box {
-      display: flex;
-      flex-direction: column;
-      width: 100%;
-      label {
-        font-size: 0.9rem;
-        margin: 0 0 -0.2rem 0;
-        z-index: 1;
-        width: fit-content;
-      }
-      input {
-        font-size: 1rem;
-        padding: 0.3rem 0.5rem;
-        outline: none;
-        border-radius: 0.2rem;
-        border: 1px solid #717171;
-      }
     }
     button {
       padding: 0.3rem 0.5rem;

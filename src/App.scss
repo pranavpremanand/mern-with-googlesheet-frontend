@@ -1,5 +1,16 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
 
+@mixin buttonStyles{
+  border: none;
+  border-radius: 0.2rem;
+  padding:0.3rem 1rem;
+  font-weight: 500;
+  color: #ffffff;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color .3s ease-in;
+}
+
 html {
   font-size: 15px;
 }
@@ -17,16 +28,25 @@ body {
 
 .primary-btn {
   background-color: #3498DB;
-  border: none;
-  border-radius: 0.2rem;
-  font-weight: 500;
-  font-size: 1rem;
-  color: #ffffff;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: background-color .3s ease-in;
+  @include buttonStyles;
   &:hover{
     background-color: #2475B0;
+  }
+}
+
+.green-btn {
+  background-color: #129c00;
+  @include buttonStyles;
+  &:hover{
+    background-color: #0e7a00;
+  }
+}
+
+.red-btn {
+  background-color: #db2626;
+  @include buttonStyles;
+  &:hover{
+    background-color: #b92020;
   }
 }
 
@@ -36,53 +56,61 @@ a{
   margin:0 0.3rem;
 }
 
+.input-box {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  label {
+    font-size: 0.9rem;
+    margin: 0 0 -0.2rem 0;
+    z-index: 1;
+    width: fit-content;
+  }
+  input {
+    font-size: 1rem;
+    padding: 0.3rem 0.5rem;
+    outline: none;
+    border-radius: 0.2rem;
+    border: 1px solid #717171;
+  }
+}
+
 .error{
   color: #ff0000;
 }
 
-@keyframes rotate {
+.loader {
+  width: 48px;
+  height: 48px;
+  border: 3px solid #FFF;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+.loader::after {
+  content: '';  
+  box-sizing: border-box;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 3px solid;
+  border-color: #2475B0 transparent;
+}
+
+@keyframes rotation {
   0% {
-    width: 64px;
-    height: 64px;
     transform: rotate(0deg);
   }
-  50% {
-    width: 30px;
-    height: 30px;
-    transform: rotate(180deg);
-  }
   100% {
-    width: 64px;
-    height: 64px;
     transform: rotate(360deg);
   }
-}
-
-.loader {
-  animation: rotate 1s infinite;
-  height: 50px;
-  width: 50px;
-}
-
-.loader:before,
-.loader:after {
-  border-radius: 50%;
-  content: "";
-  display: block;
-  height: 20px;
-  width: 20px;
-}
-.loader:before {
-  animation: ball1 1s infinite;
-  background-color: #fff;
-  box-shadow: 30px 0 0 #000;
-  margin-bottom: 10px;
-}
-.loader:after {
-  animation: ball2 1s infinite;
-  background-color: #000;
-  box-shadow: 30px 0 0 #fff;
-}
+} 
 
 // loading spinner
 .spinner-parent {
