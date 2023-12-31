@@ -10,4 +10,5 @@
   - Every forms are validated using React Hook Form.
   - Integrated Google API for fetching google sheet data.
   - Admin can do block and unblock users.
+  - Added loading spinners.
   - Blocked user status will be shown in user home.
