@@ -71,7 +71,7 @@ const AdminHome = () => {
         <tbody>
           {users.map((user) => (
             <tr className="table-item" key={user._id}>
-              <td data-label="Name">{user.email}</td>
+              <td data-label="Name">{user.name}</td>
               <td data-label="Email">{user.email}</td>
               <td data-label="Status">
                 {user.isBlocked ? (
