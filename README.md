@@ -26,6 +26,8 @@ $ cd mern-with-googlesheet-frontend
 # Install dependencies
 $ npm install
 
+# Setup the necessary environment variables
+
 # Run the app
 $ npm start
 ```
